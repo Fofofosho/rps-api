@@ -1,0 +1,123 @@
+swagger: "2.0"
+host: localhost
+info:
+  version: 1.0
+  title: "rps friends api"
+  description: "friends and stuff"
+basePath: "/v1"
+tags:
+  - name: "friends"
+    description: "Manage friend data."
+schemes:
+  - "https"
+paths:
+  /friends:
+    get:
+      tags:
+        - "friends"
+      summary: "Retrieve my friends list"
+      description: "Returns the friend list data for a specific account"
+      operationId: "getFriends"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: header
+          name: x-account-id
+          description: The ID of the account for which to lookup friends for.
+          type: "string"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            $ref: "#/definitions/consentResponse"
+        '400':
+          description: "Bad request."
+          schema:
+            $ref: "#/definitions/errorResponse"
+        '404':
+          description: "Not found."
+          schema:
+            $ref: "#/definitions/errorResponse"
+        '429':
+          description: "Too many requests."
+          schema:
+            $ref: "#/definitions/errorResponse"
+    post:
+      tags:
+        - "friends"
+      summary: "Add a friend"
+      description: "Adds a friend"
+      operationId: "addFriend"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: header
+          name: x-account-id
+          description: The ID of the account for which to add friends for.
+          type: string
+          required: true
+        - in: path
+          name: friendId
+          description: The id for the friend to add.
+          type: string
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            $ref: "#/definitions/consentResponse"
+        '400':
+          description: "Bad request."
+          schema:
+            $ref: "#/definitions/errorResponse"
+        '429':
+          description: "Too many requests."
+          schema:
+            $ref: "#/definitions/errorResponse"
+    delete:
+      tags:
+        - "friends"
+      summary: "Delete a friend"
+      description: "Delete a friend"
+      operationId: "removeFriend"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: header
+          name: x-account-id
+          description: The ID of the account for which to delete friends for.
+          type: string
+          required: true
+        - in: path
+          name: friendId
+          description: The ID of the friend that wants to be removed.
+          type: string
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            $ref: "#/definitions/consentResponse"
+        '400':
+          description: "Bad request."
+          schema:
+            $ref: "#/definitions/errorResponse"
+        '404':
+          description: "Not found."
+          schema:
+            $ref: "#/definitions/errorResponse"
+        '429':
+          description: "Too many requests."
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

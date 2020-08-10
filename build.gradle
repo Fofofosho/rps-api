@@ -2,6 +2,8 @@ plugins {
     id "com.diffplug.eclipse.apt" version "3.22.0"
     id "com.github.johnrengelman.shadow" version "6.0.0"
     id "application"
+    id "java"
+    id "io.freefair.lombok" version "5.1.1"
 }
 
 version "0.1"
@@ -22,6 +24,7 @@ dependencies {
     annotationProcessor("io.micronaut:micronaut-inject-java")
     annotationProcessor("io.micronaut:micronaut-validation")
     annotationProcessor("io.micronaut.configuration:micronaut-openapi")
+
     implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     implementation("io.micronaut:micronaut-inject")
     implementation("io.micronaut:micronaut-validation")
@@ -29,15 +32,18 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-http-server-netty")
     implementation("io.micronaut:micronaut-http-client")
-    implementation("io.swagger.core.v3:swagger-annotations")
     implementation("org.apache.logging.log4j:log4j-core:2.12.1")
+
     runtimeOnly("org.apache.logging.log4j:log4j-api:2.12.1")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.12.1")
+
     testAnnotationProcessor(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     testAnnotationProcessor("io.micronaut:micronaut-inject-java")
+
     testImplementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("io.micronaut.test:micronaut-test-junit5")
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
@@ -76,12 +82,9 @@ tasks.withType(JavaExec) {
     jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
     if (gradle.startParameter.continuous) {
         systemProperties(
-            'micronaut.io.watch.restart':'true',
-            'micronaut.io.watch.enabled':'true',
-            "micronaut.io.watch.paths":"src/main"
+            'micronaut.io.watch.restart': 'true',
+            'micronaut.io.watch.enabled': 'true',
+            "micronaut.io.watch.paths": "src/main"
         )
     }
 }
-
-
-

@@ -1,3 +1,6 @@
+# RPS Friends API
+This will handle friends for everyone
+
 ## Feature openapi documentation
 
 - [Micronaut OpenAPI Support documentation](https://micronaut-projects.github.io/micronaut-openapi/latest/guide/index.html)
